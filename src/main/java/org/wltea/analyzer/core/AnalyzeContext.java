@@ -325,7 +325,7 @@ class AnalyzeContext {
 				// 是停止词继续取列表的下一个
 				result = this.results.pollFirst();
 			} else {
-				if (result != null && (result.getLexemeType() % 4 == 0 || result.getLexemeType() == 99)) {
+				if (result != null && cfg.usePinyin() == true && (result.getLexemeType() % 4 == 0 || result.getLexemeType() == 99)) {
 					isChinese++;
 				} else {
 					result = this.results.pollFirst();

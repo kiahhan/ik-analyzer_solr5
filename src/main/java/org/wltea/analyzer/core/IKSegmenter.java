@@ -58,10 +58,11 @@ public final class IKSegmenter {
 	 * 非智能分词：细粒度输出所有可能的切分结果
 	 * 智能分词： 合并数词和量词，对分词结果进行歧义判断
 	 */
-	public IKSegmenter(Reader input , boolean useSmart){
+	public IKSegmenter(Reader input , boolean useSmart, boolean usePinyin){
 		this.input = input;
 		this.cfg = DefaultConfig.getInstance();
 		this.cfg.setUseSmart(useSmart);
+		this.cfg.setUsePinyin(usePinyin);
 		this.init();
 	}
 	

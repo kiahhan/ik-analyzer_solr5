@@ -49,6 +49,10 @@ public interface Configuration {
 	 */
 	public void setUseSmart(boolean useSmart);
 	
+	public boolean usePinyin();
+	
+	public void setUsePinyin(boolean usePinyin);
+	
 	
 	/**
 	 * 获取主词典路径
@@ -74,6 +78,5 @@ public interface Configuration {
 	 * 获取扩展停止词典配置路径
 	 * @return List<String> 相对类加载器的路径
 	 */
-	public List<String> getExtStopWordDictionarys();
-			
+	public List<String> getExtStopWordDictionarys();			
 }

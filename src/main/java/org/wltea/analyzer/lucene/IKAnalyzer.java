@@ -33,6 +33,7 @@ import org.apache.lucene.analysis.Tokenizer;
 public final class IKAnalyzer extends Analyzer {
 
 	private boolean useSmart;
+	private boolean usePinyin;
 
 	public boolean useSmart() {
 		return useSmart;
@@ -41,6 +42,14 @@ public final class IKAnalyzer extends Analyzer {
 	public void setUseSmart(boolean useSmart) {
 		this.useSmart = useSmart;
 	}
+	
+	public boolean usePinyin() {
+		return usePinyin;
+	}
+	
+	public void setUsePinyin(boolean usePinyin) {
+		this.usePinyin = usePinyin;
+	}
 
 	/**
 	 * IK分词器Lucene Analyzer接口实现类
@@ -48,7 +57,7 @@ public final class IKAnalyzer extends Analyzer {
 	 * 默认细粒度切分算法
 	 */
 	public IKAnalyzer() {
-		this(false);
+		this(false, false);
 	}
 
 	/**
@@ -57,9 +66,10 @@ public final class IKAnalyzer extends Analyzer {
 	 * @param useSmart
 	 *            当为true时，分词器进行智能切分
 	 */
-	public IKAnalyzer(boolean useSmart) {
+	public IKAnalyzer(boolean useSmart, boolean usePinyin) {
 		super();
 		this.useSmart = useSmart;
+		this.usePinyin = usePinyin;
 	}
 
 	/**
@@ -67,7 +77,7 @@ public final class IKAnalyzer extends Analyzer {
 	 */
 	@Override
 	protected TokenStreamComponents createComponents(String fieldName) {
-		Tokenizer _IKTokenizer = new IKTokenizer(this.useSmart());
+		Tokenizer _IKTokenizer = new IKTokenizer(this.useSmart(), this.usePinyin());
 //		Map<String, String> paramsMap=new HashMap<String, String>();
 //        paramsMap.put("luceneMatchVersion", "LUCENE_53");
 //        paramsMap.put("synonyms", "/Users/Kiah/Downloads/synonyms.txt");

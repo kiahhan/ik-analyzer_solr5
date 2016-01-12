@@ -60,6 +60,8 @@ public class DefaultConfig implements Configuration{
 	 */
 	private boolean useSmart;
 	
+	private boolean usePinyin;
+	
 	/**
 	 * 返回单例
 	 * @return Configuration单例
@@ -103,7 +105,17 @@ public class DefaultConfig implements Configuration{
 	 */
 	public void setUseSmart(boolean useSmart) {
 		this.useSmart = useSmart;
-	}	
+	}
+	
+	public boolean usePinyin() {
+		return usePinyin;
+	}
+	
+	@Override
+	public void setUsePinyin(boolean usePinyin) {
+		this.usePinyin = usePinyin;
+		
+	}
 	
 	/**
 	 * 获取主词典路径
@@ -164,6 +176,4 @@ public class DefaultConfig implements Configuration{
 		}		
 		return extStopWordDictFiles;		
 	}
-			
-
 }

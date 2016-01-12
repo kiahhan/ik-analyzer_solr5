@@ -33,7 +33,7 @@ import org.apache.lucene.analysis.tokenattributes.CharTermAttribute;
 import org.apache.lucene.analysis.tokenattributes.OffsetAttribute;
 import org.apache.lucene.analysis.tokenattributes.PositionIncrementAttribute;
 import org.apache.lucene.analysis.tokenattributes.TypeAttribute;
-
+import org.apache.lucene.util.AttributeFactory;
 import org.wltea.analyzer.core.IKSegmenter;
 import org.wltea.analyzer.core.Lexeme;
 
@@ -46,11 +46,11 @@ public final class IKTokenizer extends Tokenizer {
 	private IKSegmenter _IKImplement;
 	
 	//词元文本属性
-	private final CharTermAttribute termAtt;
+	private CharTermAttribute termAtt;
 	//词元位移属性
-	private final OffsetAttribute offsetAtt;
+	private OffsetAttribute offsetAtt;
 	//词元分类属性（该属性分类参考org.wltea.analyzer.core.Lexeme中的分类常量）
-	private final TypeAttribute typeAtt;
+	private TypeAttribute typeAtt;
 	//记录最后一个词元的结束位置
 	private int endPosition;
 
@@ -62,14 +62,31 @@ public final class IKTokenizer extends Tokenizer {
 	 * Lucene 4.0 Tokenizer适配器类构造函数
 	 * @param in
      */
-	public IKTokenizer(boolean useSmart){
-	    super();
-	    offsetAtt = addAttribute(OffsetAttribute.class);
+   	public IKTokenizer() {
+	    this(false, false);
+	}
+
+	public IKTokenizer(boolean useSmart, boolean usePinyin) {
+		super();
+		init(useSmart, usePinyin);
+	}
+	
+	public IKTokenizer(AttributeFactory factory) {
+		this(factory, false, false);
+	}
+
+	public IKTokenizer(AttributeFactory factory, boolean useSmart, boolean usePinyin) {
+		super(factory);
+		init(useSmart, usePinyin);
+	}
+	
+	private void init(boolean useSmart, boolean usePinyin) {
+		offsetAtt = addAttribute(OffsetAttribute.class);
 	    termAtt = addAttribute(CharTermAttribute.class);
 	    typeAtt = addAttribute(TypeAttribute.class);
         posIncrAtt = addAttribute(PositionIncrementAttribute.class);
 
-        _IKImplement = new IKSegmenter(input,useSmart);
+        _IKImplement = new IKSegmenter(input,useSmart, usePinyin);
 	}
 
 	/* (non-Javadoc)
